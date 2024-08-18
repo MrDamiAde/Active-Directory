@@ -21,7 +21,7 @@ I first created 5 organisational units of different departments under the compan
 
 ![Screenshot 2024-08-18 114511](https://github.com/user-attachments/assets/d13d101d-a5b3-4d08-9808-f0ee8a1d0d12)
 
-#### 2. 
+#### 2. 500 Users Creation
 
 I created a CSV file with 500 rows of dummy data using the below PowerShell script:
 
