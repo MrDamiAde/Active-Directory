@@ -6,22 +6,13 @@ This project simulates a scenario in a medium-sized company, DamiAde, undergoing
 
 ### Tools and Technologies
 
-- VirtualBox
-- Windows Server 2019
+- VirtualBox - used to run Windows 2022 
+- Windows Server 2022
 - Active Directory Domain Services (AD DS)
 - PowerShell
 - Group Policy Management Console (GPMC)
 
-### Step 1. Preparation
-
-#### 1. Organisational Unit (OU) creation
-
-I first created 5 organisational units of different departments under the company domain: IT, HR, Marketing, Sales, and Finance.
-
-
-![Screenshot 2024-08-18 114511](https://github.com/user-attachments/assets/d13d101d-a5b3-4d08-9808-f0ee8a1d0d12)
-
-#### 2. 200 Users Creation
+### Step 1. Preparation: Dummy Data Creation
 
 I created a CSV file with 200 rows of dummy data using the below PowerShell script:
 
@@ -102,9 +93,9 @@ if (Test-Path $csvFile) {
 
 
 
-### Step 2. Automating User Creation with PowerShell
+### Step 2. Automating Active Directory User Creation with PowerShell
 
-I used the below powershell script that reads the CSV file created above and use that data to create accounts on Active Directory:
+I used the below Powershell script that reads the dummy CSV file created previously and uses that data to create accounts on Active Directory:
 
 ```Powershell
 
@@ -139,13 +130,13 @@ foreach ($user in $userData) {
 
 ```
 
-I have now succesfuly created 200 user accounts on active directory using the data from the CSV file. I also automatically set all apsswords as "P@ssw0rd" and set used the ```ChangePasswordAtLogon $true``` code for each user to change their password upon loging in.
+I have now successfully created 200 user accounts on Active Directory using the data from the CSV file. I also automatically set all passwords as "P@ssw0rd" and then used the ```ChangePasswordAtLogon $true``` command to ensure every user changes their password upon logging in.
 
 
 ![Screenshot 2024-08-18 184520](https://github.com/user-attachments/assets/427b245a-1b2b-475e-a1a7-fb0972a57899)
 
 I used ```Import-Module ActiveDirectory
-Get-ADUser -Filter * -Properties Name, SamAccountName, UserPrincipalName | Select-Object Name, SamAccountName, UserPrincipalName``` to verify that the users were created on pwoershell too.
+Get-ADUser -Filter * -Properties Name, SamAccountName, UserPrincipalName | Select-Object Name, SamAccountName, UserPrincipalName``` to verify that the users were created on PowerShell too.
 
 
 ![Screenshot 2024-08-18 185907](https://github.com/user-attachments/assets/cfc09923-3693-4769-8762-df9bad59cd10)
@@ -153,7 +144,7 @@ Get-ADUser -Filter * -Properties Name, SamAccountName, UserPrincipalName | Selec
 
 ### Step 3: Managing Group Memberships
 
-I will now automate the process of adding new users to the appropriate groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup".
+After manually creating 5 OU for 5 departments (IT, HR, Marking, Sales, Finance), I  will now automate the process of adding new users to the appropriate groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup".
 
 I used Powershell to create the groups:
 ``` Powershell
@@ -178,9 +169,9 @@ foreach ($group in $groups) {
 ![Screenshot 2024-08-18 191012](https://github.com/user-attachments/assets/6b997002-00c5-4448-b88b-9db3d219fb86)
 
 
-Verifying User Creation
+### Step 4. Verifying User Creation
 
-I will now verify that all 200 users have been successfully added to the correct group using the below code
+I will now verify that all 200 users have been successfully added to the correct group using the below script:
 
 ```PowerShell
 Import-Module ActiveDirectory
@@ -216,14 +207,14 @@ foreach ($user in $userData) {
 
 ```
 
-The screenshot below confirms the success:
+The screenshot below confirms its success:
 
 ![Screenshot 2024-08-18 191615](https://github.com/user-attachments/assets/2bb1285e-2ede-4bb3-a639-e00b45b627c9)
 
 
-### Implimenting Group Polocies
+### Step 5. Implementing Group Policies
 
-I will now implement a strong password GPO to ensure all users and groups in the 'CompanyUsers' OU are abiding by the safe standards of password setting.
+I will now implement a strong password GPO to ensure all users and groups in the 'CompanyUsers' OU are abiding by the safety standards of password setting.
 
 ```Powershell
 New-GPO -Name "Strong Password Policy" -Comment "Enforces strong password requirements."
@@ -231,7 +222,7 @@ Set-GPRegistryValue -Name "Strong Password Policy" -Key "HKLM\Software\Policies\
 Set-GPRegistryValue -Name "Strong Password Policy" -Key "HKLM\Software\Policies\Microsoft\Windows\Safer\CodeIdentifiers" -ValueName "MaximumPasswordAge" -Type DWord -Value 60
 New-GPLink -Name "Strong Password Policy" -Target "OU=CompanyUsers,DC=DamiAde,DC=com"
 ```
-I manually confirmed that the right OU was linked to the GPO
+I manually confirmed that the right OU was linked to the GPO:
 
 ![Screenshot 2024-08-18 195021](https://github.com/user-attachments/assets/122a6905-528d-4cdb-869d-78fc1b2b6887)
 
@@ -240,13 +231,19 @@ I manually confirmed that the right OU was linked to the GPO
 ### Results
 
 1. Successfully created 200 AD accounts using Powershell
-2. Created 5 groups for5 department using Powershell
+2. Created 5 groups for 5 departments using Powershell
 3. Created a GPO using PowerShell and successfully linked it to the CompanyUsers OU
    
 
+### Reflection
+
+1.
+2. Whilst PowerShell is useful, there are some areas where manually checking could have saved me more time than finding the right scripts. For example, I struggled to create a script to confirm if the GPO was linked to the CompanyUsers OU but could have just manually checked as I ultimately did.
    
 
 
 ### References
-
+1. ChatGBT for scripts
+2. https://www.youtube.com/watch?v=db0TV_Dters 
+   
 
