@@ -95,7 +95,7 @@ I used the below powershell script that reads the CSV file created above and use
 
 Import-Module ActiveDirectory
 
-$csvFile = "C:\Users\Administrator\dummydata.csv"
+$csvFile = "C:\Users\Administrator\Desktop\dummydata.csv"
 $userData = Import-Csv -Path $csvFile
 
 foreach ($user in $userData) {
