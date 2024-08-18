@@ -59,6 +59,12 @@ for ($i = 1; $i -le $recordCount; $i++) {
 $data | Export-Csv -Path $outputFile -NoTypeInformation
 ```
 
+I then used the below code to confirm that the file content was correctly created:
+
+```Powershell
+# Import the CSV file and display its contents
+Import-Csv -Path "C:\Users\YourUsername\Desktop\dummydata.csv" | Format-Table -AutoSize
+```
 
 ### 2. Bulk Uploading Using Bulk Operations
 
