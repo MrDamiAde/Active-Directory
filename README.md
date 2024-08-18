@@ -218,7 +218,8 @@ foreach ($user in $userData) {
 
 The screenshot below confirms the success:
 
-![Screenshot 2024-08-17 133209](https://github.com/user-attachments/assets/b78bec12-3715-4f87-8702-a043d2232074)
+![Screenshot 2024-08-18 191615](https://github.com/user-attachments/assets/2bb1285e-2ede-4bb3-a639-e00b45b627c9)
+
 
 
 ### Results
