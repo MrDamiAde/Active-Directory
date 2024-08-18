@@ -2,7 +2,7 @@
 
 ### Project Overview
 ---
-This project simulates a scenario in a medium-sized company undergoing a departmental reorganisation. The task involves setting up a new Active Directory environment on Windows Server, creating and organising 500 user accounts based on department and role, and applying appropriate Group Policies for security and access control. PowerShell scripting is used for automating the bulk user creation process and validating the configuration.
+This project simulates a scenario in a medium-sized company, DamiAde, undergoing a departmental reorganisation. The task involves setting up a new Active Directory environment on Windows Server, creating and organising 500 user accounts based on department and role, and applying appropriate Group Policies for security and access control. PowerShell scripting is used for automating the bulk user creation process and validating the configuration.
 
 ### Tools and Technologies
 
@@ -73,9 +73,9 @@ if (Test-Path $csvFile) {
 }
 
 
-
 ```
 
+![Screenshot 2024-08-18 135036](https://github.com/user-attachments/assets/ab6ab4a5-0f9d-4580-a48d-dc582f4c89d1)
 
 
 
