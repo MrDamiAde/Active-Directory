@@ -223,7 +223,7 @@ The screenshot below confirms the success:
 
 ### Implimenting Group Polocies
 
-I will mow impliment a strong password GPO to ensure all users and groups in the 'CompanyUsers' OU are abiding by the safe standards of password setting.
+I will now implement a strong password GPO to ensure all users and groups in the 'CompanyUsers' OU are abiding by the safe standards of password setting.
 
 ```Powershell
 New-GPO -Name "Strong Password Policy" -Comment "Enforces strong password requirements."
@@ -231,18 +231,22 @@ Set-GPRegistryValue -Name "Strong Password Policy" -Key "HKLM\Software\Policies\
 Set-GPRegistryValue -Name "Strong Password Policy" -Key "HKLM\Software\Policies\Microsoft\Windows\Safer\CodeIdentifiers" -ValueName "MaximumPasswordAge" -Type DWord -Value 60
 New-GPLink -Name "Strong Password Policy" -Target "OU=CompanyUsers,DC=DamiAde,DC=com"
 ```
+I manually confirmed that the right OU was linked to the GPO
+
+![Screenshot 2024-08-18 195021](https://github.com/user-attachments/assets/122a6905-528d-4cdb-869d-78fc1b2b6887)
 
 
 
 ### Results
 
-1. Successfully created 1000 Users in Entra ID
-2. Verified the creation's success using Powershell
+1. Successfully created 200 AD accounts using Powershell
+2. Created 5 groups for5 department using Powershell
+3. Created a GPO using PowerShell and successfully linked it to the CompanyUsers OU
+   
 
    
 
 
 ### References
 
-1. https://1000randomnames.com/
-2. https://learn.microsoft.com/en-us/entra/identity/users/users-bulk-add
+
