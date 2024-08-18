@@ -6,7 +6,7 @@ This project simulates a scenario in a medium-sized company undergoing a departm
 
 ### Tools and Technologies
 
-- Windows Server 2019/2022
+- Windows Server 2019
 - Active Directory Domain Services (AD DS)
 - PowerShell
 - Group Policy Management Console (GPMC)
@@ -65,6 +65,9 @@ $data | Format-Table -AutoSize
 
 
 ```
+
+![image](https://github.com/user-attachments/assets/b6b94819-ab33-4e8e-8842-a79764162fb4)
+
 
 ### 2. Bulk Uploading Using Bulk Operations
 
