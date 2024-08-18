@@ -63,7 +63,7 @@ I then used the below code to confirm that the file content was correctly create
 
 ```Powershell
 # Import the CSV file and display its contents
-Import-Csv -Path "C:\Users\YourUsername\Desktop\dummydata.csv" | Format-Table -AutoSize
+Import-Csv -Path "C:\path\to\your\dummydata.csv" | Format-Table -AutoSize
 ```
 
 ### 2. Bulk Uploading Using Bulk Operations
