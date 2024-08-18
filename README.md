@@ -237,8 +237,7 @@ I manually confirmed that the right OU was linked to the GPO:
 
 ### Reflection
 
-1.
-2. Whilst PowerShell is useful, there are some areas where manually checking could have saved me more time than finding the right scripts. For example, I struggled to create a script to confirm if the GPO was linked to the CompanyUsers OU but could have just manually checked as I ultimately did.
+While PowerShell is useful, there are some areas where manually checking could have saved me more time than finding the right scripts. For example, I struggled to create a script to confirm if the GPO was linked to the CompanyUsers OU but could have just manually checked as I ultimately did.
    
 
 
