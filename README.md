@@ -27,24 +27,37 @@ I created a CSV file with 500 rows of dummy data using the below PowerShell scri
 
 ```Powershell
 $firstNames = @("John", "Jane", "Michael", "Emily", "Daniel", "Sarah", "David", "Laura", "Chris", "Jessica",
-                "Matthew", "Ashley", "Joshua", "Amanda", "Andrew", "Megan", "James", "Hannah", "Joseph", "Olivia",
-                "Ryan", "Sophia", "Noah", "Isabella", "Benjamin", "Emma", "Samuel", "Ava", "Alexander", "Chloe",
-                "Ethan", "Mia", "Jacob", "Madison", "Nicholas", "Abigail", "Tyler", "Grace", "Zachary", "Ella")
+                "Emma", "Liam", "Olivia", "Noah", "Ava", "Sophia", "Isabella", "Mason", "Logan", "Ethan", 
+                "James", "Alexander", "Jacob", "Elijah", "Matthew", "Benjamin", "Lucas", "Henry", "Sebastian", 
+                "Jack", "Oliver", "William", "Charlotte", "Amelia", "Harper", "Ella", "Abigail", "Zoe", "Chloe")
 
-$lastNames = @("Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "García", "Rodriguez", "Martínez",
-               "Taylor", "Anderson", "Thomas", "Hernández", "Moore", "Martin", "Jackson", "Thompson", "White", "López",
-               "Lee", "González", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Pérez", "Hall", "Young",
-               "Allen", "Sánchez", "Wright", "King", "Scott", "Green", "Baker", "Adams", "Nelson", "Hill")
+$lastNames = @("Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "García", "Rodriguez", 
+               "Martínez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", 
+               "Moore", "Jackson", "Martin", "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", 
+               "Clark", "Lewis", "Robinson", "Walker", "Hall", "Young", "King", "Wright", "Scott", "Green")
 
-$recordCount = 500
+$recordCount = 200
 $outputFile = "C:\Users\Administrator\Desktop\dummydata.csv"
 
 $data = @()
 $departments = @("HR", "IT", "Marketing", "Finance", "Sales")
+$usedNames = @()
 
 for ($i = 1; $i -le $recordCount; $i++) {
-    $firstName = $firstNames[(Get-Random -Minimum 0 -Maximum ($firstNames.Length - 1))]
-    $lastName = $lastNames[(Get-Random -Minimum 0 -Maximum ($lastNames.Length - 1))]
+    $attempt = 0
+    do {
+        $firstName = $firstNames[(Get-Random -Minimum 0 -Maximum ($firstNames.Length - 1))]
+        $lastName = $lastNames[(Get-Random -Minimum 0 -Maximum ($lastNames.Length - 1))]
+        $fullName = "$firstName $lastName"
+        $attempt++
+        if ($attempt -gt 1000) {
+            Write-Host "Unable to generate a unique name after 1000 attempts." -ForegroundColor Red
+            exit
+        }
+    } until ($usedNames -notcontains $fullName)
+    
+    $usedNames += $fullName
+    
     $email = "user$i@example.com"
     $username = "user$i"
     $phoneNumber = "+1234567890"
@@ -63,6 +76,7 @@ for ($i = 1; $i -le $recordCount; $i++) {
 }
 
 $data | Export-Csv -Path $outputFile -NoTypeInformation
+
 
 
 ```
