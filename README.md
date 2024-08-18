@@ -144,10 +144,23 @@ I have now succesfuly created 500 user accounts on active directry using the dat
 
 ![Screenshot 2024-08-18 184520](https://github.com/user-attachments/assets/427b245a-1b2b-475e-a1a7-fb0972a57899)
 
+I used ```Import-Module ActiveDirectory
+Get-ADUser -Filter * -Properties Name, SamAccountName, UserPrincipalName | Select-Object Name, SamAccountName, UserPrincipalName``` to verify that the users were created on pwoershell too.
+
+
+![Screenshot 2024-08-18 185907](https://github.com/user-attachments/assets/cfc09923-3693-4769-8762-df9bad59cd10)
+
 
 ### Step 3: Managing Group Memberships
 
 I will now automate the process of adding new users to the appropriate groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup" polocy.
+
+I used Powershell to create the groups:
+'''Powershell
+
+
+![Screenshot 2024-08-18 191012](https://github.com/user-attachments/assets/6b997002-00c5-4448-b88b-9db3d219fb86)
+
 
 Verifying User Creation
 
