@@ -153,7 +153,7 @@ Get-ADUser -Filter * -Properties Name, SamAccountName, UserPrincipalName | Selec
 
 ### Step 3: Managing Group Memberships
 
-I will now automate the process of adding new users to the appropriate groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup" polocy.
+I will now automate the process of adding new users to the appropriate groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup".
 
 I used Powershell to create the groups:
 ``` Powershell
