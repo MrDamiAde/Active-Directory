@@ -12,7 +12,7 @@ This project simulates a scenario in a medium-sized company undergoing a departm
 - PowerShell
 - Group Policy Management Console (GPMC)
 
-### Preparation
+### Step 1. Preparation
 
 #### 1. Organisational Unit (OU) creation
 
@@ -27,13 +27,15 @@ I created a CSV file with 500 rows of dummy data using the below PowerShell scri
 
 ```Powershell
 $recordCount = 500
-$outputFile = "C:\path\to\your\dummydata.csv"
+$outputFile = "C:\Users\a-dadebayo\Desktop\dummydata.csv"
 $data = @()
 $departments = @("HR", "IT", "Marketing", "Finance", "Sales")
+$firstNames = @("John", "Jane", "Michael", "Emily", "Chris", "Katie", "David", "Laura", "James", "Sarah")
+$lastNames = @("Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor")
 
 for ($i = 1; $i -le $recordCount; $i++) {
-    $firstName = "FirstName$i"
-    $lastName = "LastName$i"
+    $firstName = $firstNames[(Get-Random -Minimum 0 -Maximum ($firstNames.Length - 1))]
+    $lastName = $lastNames[(Get-Random -Minimum 0 -Maximum ($lastNames.Length - 1))]
     $email = "user$i@example.com"
     $username = "user$i"
     $phoneNumber = "+1234567890"
@@ -58,23 +60,31 @@ $data | Export-Csv -Path $outputFile -NoTypeInformation
 I then used the below code to confirm that the file content was correctly created:
 
 ```Powershell
-$csvFile = "C:\path\to\your\dummydata.csv"
+$csvFile = "C:\Users\a-dadebayo\Desktop\dummydata.csv"
 
-$data = Import-Csv -Path $csvFile
+if (Test-Path $csvFile) {
+    Write-Output "The CSV file was created successfully."
 
-$data | Format-Table -AutoSize
+    $csvContent = Import-Csv -Path $csvFile
+    Write-Output "CSV File Contents:"
+    $csvContent | Format-Table -AutoSize
+} else {
+    Write-Output "The CSV file was not found."
+}
+
 
 
 ```
 
-![image](https://github.com/user-attachments/assets/b6b94819-ab33-4e8e-8842-a79764162fb4)
 
 
-### 2. Automating User Creation with PowerShell
+
+### Step 2. Automating User Creation with PowerShell
 
 I used the below powershell script that reads the CSV file created above and use that data to create accounts on Active Directory:
 
 ```Powershell
+
 Import-Module ActiveDirectory
 
 $csvFile = "C:\path\to\your\dummydata.csv"
@@ -87,13 +97,13 @@ foreach ($user in $userData) {
     $email = $user.Email
     $department = $user.Department
     $title = $user.Title
-    $ou = "OU=Users,DC=YourDomain,DC=com"  # Replace with your actual OU
+    $ou = "OU=Users,DC=damiade,DC=com"
 
     New-ADUser `
         -Name "$firstName $lastName" `
         -GivenName $firstName `
         -Surname $lastName `
-        -UserPrincipalName "$username@YourDomain.com" `
+        -UserPrincipalName "$username@damiade.com" `
         -SamAccountName $username `
         -EmailAddress $email `
         -Path $ou `
@@ -109,7 +119,11 @@ I have now succesfuly created 500 user accounts on active directry using the dat
 
 
 
-### 3. User Analysis using Powershell
+### Step 3: Managing Group Memberships
+
+I will now automate the process of adding new users to the apprioprite groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup" polocy.
+
+Verifying User Creation
 
 I will now verify that all 1000 users have been successfully uploaded on Entra ID using the below PowerShell script:
 
