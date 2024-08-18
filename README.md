@@ -142,10 +142,12 @@ foreach ($user in $userData) {
 I have now succesfuly created 500 user accounts on active directry using the data from the CSV file. I also automatically set all apsswords as "P@ssw0rd" and set used the ```ChangePasswordAtLogon $true``` code for each user to change their password upon loging in.
 
 
+![Screenshot 2024-08-18 184520](https://github.com/user-attachments/assets/427b245a-1b2b-475e-a1a7-fb0972a57899)
+
 
 ### Step 3: Managing Group Memberships
 
-I will now automate the process of adding new users to the apprioprite groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup" polocy.
+I will now automate the process of adding new users to the appropriate groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup" polocy.
 
 Verifying User Creation
 
