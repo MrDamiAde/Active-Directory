@@ -30,7 +30,7 @@ $firstNames = @("John", "Jane", "Michael", "Emily", "Daniel", "Sarah", "David", 
 $lastNames = @("Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "García", "Rodriguez", "Martínez")
 
 $recordCount = 500
-$outputFile = "C:\Users\a-dadebayo\Desktop\dummydata.csv"
+$outputFile = "C:\Users\Administrator/Desktop\dummydata.csv"
 
 $data = @()
 $departments = @("HR", "IT", "Marketing", "Finance", "Sales")
@@ -63,7 +63,7 @@ $data | Export-Csv -Path $outputFile -NoTypeInformation
 I then used the below code to confirm that the file content was correctly created:
 
 ```Powershell
-$csvFile = "C:\Users\a-dadebayo\Desktop\dummydata.csv"
+$csvFile = "C:\Users\Administrator\Desktop\dummydata.csv"
 
 if (Test-Path $csvFile) {
     $data = Import-Csv -Path $csvFile
@@ -87,7 +87,7 @@ I used the below powershell script that reads the CSV file created above and use
 
 Import-Module ActiveDirectory
 
-$csvFile = "C:\path\to\your\dummydata.csv"
+$csvFile = "C:\Users\Adminstrator\dummydata.csv"
 $userData = Import-Csv -Path $csvFile
 
 foreach ($user in $userData) {
