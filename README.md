@@ -221,6 +221,18 @@ The screenshot below confirms the success:
 ![Screenshot 2024-08-18 191615](https://github.com/user-attachments/assets/2bb1285e-2ede-4bb3-a639-e00b45b627c9)
 
 
+### Implimenting Group Polocies
+
+I will mow impliment a strong password GPO to ensure all users and groups in the 'CompanyUsers' OU are abiding by the safe standards of password setting.
+
+```Powershell
+New-GPO -Name "Strong Password Policy" -Comment "Enforces strong password requirements."
+Set-GPRegistryValue -Name "Strong Password Policy" -Key "HKLM\Software\Policies\Microsoft\Windows\Safer\CodeIdentifiers" -ValueName "MinimumPasswordLength" -Type DWord -Value 12
+Set-GPRegistryValue -Name "Strong Password Policy" -Key "HKLM\Software\Policies\Microsoft\Windows\Safer\CodeIdentifiers" -ValueName "MaximumPasswordAge" -Type DWord -Value 60
+New-GPLink -Name "Strong Password Policy" -Target "OU=CompanyUsers,DC=DamiAde,DC=com"
+```
+
+
 
 ### Results
 
