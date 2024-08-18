@@ -25,23 +25,18 @@ I first created 5 organisational units of different departments under the compan
 I created a CSV file with 500 rows of dummy data using the below PowerShell script:
 
 ```Powershell
-# Define the number of records
 $recordCount = 500
-
-# Define the output file path
 $outputFile = "C:\path\to\your\dummydata.csv"
-
-# Initialize an array to hold the dummy data
 $data = @()
+$departments = @("HR", "IT", "Marketing", "Finance", "Sales")
 
-# Generate dummy data
 for ($i = 1; $i -le $recordCount; $i++) {
     $firstName = "FirstName$i"
     $lastName = "LastName$i"
     $email = "user$i@example.com"
     $username = "user$i"
     $phoneNumber = "+1234567890"
-    $department = "Department$((Get-Random -Minimum 1 -Maximum 5))"
+    $department = $departments[(Get-Random -Minimum 0 -Maximum 4)]
     $title = "Title$((Get-Random -Minimum 1 -Maximum 5))"
     
     $data += [pscustomobject]@{
@@ -55,15 +50,20 @@ for ($i = 1; $i -le $recordCount; $i++) {
     }
 }
 
-# Export the data to a CSV file
 $data | Export-Csv -Path $outputFile -NoTypeInformation
+
 ```
 
 I then used the below code to confirm that the file content was correctly created:
 
 ```Powershell
-# Import the CSV file and display its contents
-Import-Csv -Path "C:\path\to\your\dummydata.csv" | Format-Table -AutoSize
+$csvFile = "C:\path\to\your\dummydata.csv"
+
+$data = Import-Csv -Path $csvFile
+
+$data | Format-Table -AutoSize
+
+
 ```
 
 ### 2. Bulk Uploading Using Bulk Operations
