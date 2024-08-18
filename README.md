@@ -26,11 +26,18 @@ I first created 5 organisational units of different departments under the compan
 I created a CSV file with 500 rows of dummy data using the below PowerShell script:
 
 ```Powershell
-$firstNames = @("John", "Jane", "Michael", "Emily", "Daniel", "Sarah", "David", "Laura", "Chris", "Jessica")
-$lastNames = @("Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "García", "Rodriguez", "Martínez")
+$firstNames = @("John", "Jane", "Michael", "Emily", "Daniel", "Sarah", "David", "Laura", "Chris", "Jessica",
+                "Matthew", "Ashley", "Joshua", "Amanda", "Andrew", "Megan", "James", "Hannah", "Joseph", "Olivia",
+                "Ryan", "Sophia", "Noah", "Isabella", "Benjamin", "Emma", "Samuel", "Ava", "Alexander", "Chloe",
+                "Ethan", "Mia", "Jacob", "Madison", "Nicholas", "Abigail", "Tyler", "Grace", "Zachary", "Ella")
+
+$lastNames = @("Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "García", "Rodriguez", "Martínez",
+               "Taylor", "Anderson", "Thomas", "Hernández", "Moore", "Martin", "Jackson", "Thompson", "White", "López",
+               "Lee", "González", "Harris", "Clark", "Lewis", "Robinson", "Walker", "Pérez", "Hall", "Young",
+               "Allen", "Sánchez", "Wright", "King", "Scott", "Green", "Baker", "Adams", "Nelson", "Hill")
 
 $recordCount = 500
-$outputFile = "C:\Users\Administrator/Desktop\dummydata.csv"
+$outputFile = "C:\Users\Administrator\Desktop\dummydata.csv"
 
 $data = @()
 $departments = @("HR", "IT", "Marketing", "Finance", "Sales")
