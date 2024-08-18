@@ -156,7 +156,27 @@ Get-ADUser -Filter * -Properties Name, SamAccountName, UserPrincipalName | Selec
 I will now automate the process of adding new users to the appropriate groups based on their departments. For example, users in "IT" OU should be added to the "ITGroup" polocy.
 
 I used Powershell to create the groups:
-'''Powershell
+``` Powershell
+# Import the Active Directory module
+Import-Module ActiveDirectory
+
+# Define group names
+$groups = @("FinanceGroup", "ITGroup", "HRGroup", "MarketingGroup", "SalesGroup")
+
+# Define the OU path where groups will be created
+$ouPath = "OU=CompanyUsers,DC=DamiAde,DC=com"
+
+foreach ($group in $groups) {
+    # Check if the group already exists
+    if (-not (Get-ADGroup -Filter { Name -eq $group } -SearchBase $ouPath -ErrorAction SilentlyContinue)) {
+        # Create the group
+        New-ADGroup -Name $group -Path $ouPath -GroupScope Global -PassThru | Out-Null
+        Write-Host "Group '$group' created in OU '$ouPath'."
+    } else {
+        Write-Host "Group '$group' already exists in OU '$ouPath'."
+    }
+}
+```
 
 
 ![Screenshot 2024-08-18 191012](https://github.com/user-attachments/assets/6b997002-00c5-4448-b88b-9db3d219fb86)
