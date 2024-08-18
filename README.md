@@ -120,7 +120,7 @@ foreach ($user in $userData) {
     $email = $user.Email
     $department = $user.Department
     $title = $user.Title
-    $ou = "OU=Users,DC=damiade,DC=com"
+    $ou = "OU=CompanyUsers,DC=damiade,DC=com"
 
     New-ADUser `
         -Name "$firstName $lastName" `
@@ -136,6 +136,7 @@ foreach ($user in $userData) {
         -Enabled $true `
         -ChangePasswordAtLogon $true
 }
+
 ```
 
 I have now succesfuly created 500 user accounts on active directry using the data from the CSV file. I also automatically set all apsswords as "P@ssw0rd" and set used the ```ChangePasswordAtLogon $true``` code for each user to change their password upon loging in.
