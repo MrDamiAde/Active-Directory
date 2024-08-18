@@ -6,6 +6,7 @@ This project simulates a scenario in a medium-sized company undergoing a departm
 
 ### Tools and Technologies
 
+- VirtualBox
 - Windows Server 2019
 - Active Directory Domain Services (AD DS)
 - PowerShell
