@@ -183,7 +183,37 @@ Verifying User Creation
 I will now verify that all 200 users have been successfully added to the correct group using the below code
 
 ```PowerShell
-Get-MgUser -Filter "UserType eq 'Member'"
+Import-Module ActiveDirectory
+
+$groups = @{
+    "Finance" = "FinanceGroup"
+    "IT" = "ITGroup"
+    "HR" = "HRGroup"
+    "Marketing" = "MarketingGroup"
+    "Sales" = "SalesGroup"
+}
+
+$csvFile = "C:\Users\Administrator\Desktop\dummydata.csv"
+$userData = Import-Csv -Path $csvFile
+
+foreach ($user in $userData) {
+    $username = $user.Username
+    $department = $user.Department
+    $group = $groups[$department]
+
+    if ($group) {
+        $isMember = Get-ADGroupMember -Identity $group -Recursive | Where-Object { $_.SamAccountName -eq $username }
+
+        if ($isMember) {
+            Write-Host "User '$username' is a member of the '$group' group."
+        } else {
+            Write-Host "User '$username' is NOT a member of the '$group' group."
+        }
+    } else {
+        Write-Host "No group found for department '$department' for user '$username'."
+    }
+}
+
 ```
 
 The screenshot below confirms the success:
