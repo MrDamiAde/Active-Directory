@@ -2,7 +2,7 @@
 
 ### Project Overview
 ---
-This project simulates a scenario in a medium-sized company, DamiAde, undergoing a departmental reorganisation. The task involves setting up a new Active Directory environment on Windows Server, creating and organising 500 user accounts based on department and role, and applying appropriate Group Policies for security and access control. PowerShell scripting is used for automating the bulk user creation process and validating the configuration.
+This project simulates a scenario in a medium-sized company, DamiAde, undergoing a departmental reorganisation. The task involves setting up a new Active Directory environment on Windows Server, creating and organising 200 user accounts based on department and role, and applying appropriate Group Policies for security and access control. PowerShell scripting is used for automating the bulk user creation process and validating the configuration.
 
 ### Tools and Technologies
 
@@ -21,9 +21,9 @@ I first created 5 organisational units of different departments under the compan
 
 ![Screenshot 2024-08-18 114511](https://github.com/user-attachments/assets/d13d101d-a5b3-4d08-9808-f0ee8a1d0d12)
 
-#### 2. 500 Users Creation
+#### 2. 200 Users Creation
 
-I created a CSV file with 500 rows of dummy data using the below PowerShell script:
+I created a CSV file with 200 rows of dummy data using the below PowerShell script:
 
 ```Powershell
 $firstNames = @("John", "Jane", "Michael", "Emily", "Daniel", "Sarah", "David", "Laura", "Chris", "Jessica",
@@ -151,7 +151,7 @@ I will now automate the process of adding new users to the appropriate groups ba
 
 Verifying User Creation
 
-I will now verify that all 1000 users have been successfully uploaded on Entra ID using the below PowerShell script:
+I will now verify that all 200 users have been successfully uploaded on Entra ID using the below PowerShell script:
 
 ```PowerShell
 Get-MgUser -Filter "UserType eq 'Member'"
