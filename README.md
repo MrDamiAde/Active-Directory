@@ -26,12 +26,14 @@ I first created 5 organisational units of different departments under the compan
 I created a CSV file with 500 rows of dummy data using the below PowerShell script:
 
 ```Powershell
+$firstNames = @("John", "Jane", "Michael", "Emily", "Daniel", "Sarah", "David", "Laura", "Chris", "Jessica")
+$lastNames = @("Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "García", "Rodriguez", "Martínez")
+
 $recordCount = 500
 $outputFile = "C:\Users\a-dadebayo\Desktop\dummydata.csv"
+
 $data = @()
 $departments = @("HR", "IT", "Marketing", "Finance", "Sales")
-$firstNames = @("John", "Jane", "Michael", "Emily", "Chris", "Katie", "David", "Laura", "James", "Sarah")
-$lastNames = @("Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor")
 
 for ($i = 1; $i -le $recordCount; $i++) {
     $firstName = $firstNames[(Get-Random -Minimum 0 -Maximum ($firstNames.Length - 1))]
@@ -39,7 +41,7 @@ for ($i = 1; $i -le $recordCount; $i++) {
     $email = "user$i@example.com"
     $username = "user$i"
     $phoneNumber = "+1234567890"
-    $department = $departments[(Get-Random -Minimum 0 -Maximum 4)]
+    $department = $departments[(Get-Random -Minimum 0 -Maximum ($departments.Length - 1))]
     $title = "Title$((Get-Random -Minimum 1 -Maximum 5))"
     
     $data += [pscustomobject]@{
@@ -55,6 +57,7 @@ for ($i = 1; $i -le $recordCount; $i++) {
 
 $data | Export-Csv -Path $outputFile -NoTypeInformation
 
+
 ```
 
 I then used the below code to confirm that the file content was correctly created:
@@ -63,13 +66,10 @@ I then used the below code to confirm that the file content was correctly create
 $csvFile = "C:\Users\a-dadebayo\Desktop\dummydata.csv"
 
 if (Test-Path $csvFile) {
-    Write-Output "The CSV file was created successfully."
-
-    $csvContent = Import-Csv -Path $csvFile
-    Write-Output "CSV File Contents:"
-    $csvContent | Format-Table -AutoSize
+    $data = Import-Csv -Path $csvFile
+    $data | Format-Table -AutoSize
 } else {
-    Write-Output "The CSV file was not found."
+    Write-Output "File not found: $csvFile"
 }
 
 
