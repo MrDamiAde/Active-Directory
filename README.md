@@ -139,7 +139,7 @@ foreach ($user in $userData) {
 
 ```
 
-I have now succesfuly created 500 user accounts on active directry using the data from the CSV file. I also automatically set all apsswords as "P@ssw0rd" and set used the ```ChangePasswordAtLogon $true``` code for each user to change their password upon loging in.
+I have now succesfuly created 200 user accounts on active directory using the data from the CSV file. I also automatically set all apsswords as "P@ssw0rd" and set used the ```ChangePasswordAtLogon $true``` code for each user to change their password upon loging in.
 
 
 ![Screenshot 2024-08-18 184520](https://github.com/user-attachments/assets/427b245a-1b2b-475e-a1a7-fb0972a57899)
@@ -157,17 +157,13 @@ I will now automate the process of adding new users to the appropriate groups ba
 
 I used Powershell to create the groups:
 ``` Powershell
-# Import the Active Directory module
 Import-Module ActiveDirectory
 
-# Define group names
 $groups = @("FinanceGroup", "ITGroup", "HRGroup", "MarketingGroup", "SalesGroup")
 
-# Define the OU path where groups will be created
 $ouPath = "OU=CompanyUsers,DC=DamiAde,DC=com"
 
 foreach ($group in $groups) {
-    # Check if the group already exists
     if (-not (Get-ADGroup -Filter { Name -eq $group } -SearchBase $ouPath -ErrorAction SilentlyContinue)) {
         # Create the group
         New-ADGroup -Name $group -Path $ouPath -GroupScope Global -PassThru | Out-Null
@@ -184,7 +180,7 @@ foreach ($group in $groups) {
 
 Verifying User Creation
 
-I will now verify that all 200 users have been successfully uploaded on Entra ID using the below PowerShell script:
+I will now verify that all 200 users have been successfully added to the correct group using the below code
 
 ```PowerShell
 Get-MgUser -Filter "UserType eq 'Member'"
