@@ -70,11 +70,42 @@ $data | Format-Table -AutoSize
 ![image](https://github.com/user-attachments/assets/b6b94819-ab33-4e8e-8842-a79764162fb4)
 
 
-### 2. Bulk Uploading Using Bulk Operations
+### 2. Automating User Creation with PowerShell
 
-I used the bulk operation tool to import the 1000 users into Entra ID.
+I used the below powershell script that reads the CSV file created above and use that data to create accounts on Active Directory:
 
-https://github.com/user-attachments/assets/abf2d241-efa8-473e-b3d0-310e7f469aec
+```Powershell
+Import-Module ActiveDirectory
+
+$csvFile = "C:\path\to\your\dummydata.csv"
+$userData = Import-Csv -Path $csvFile
+
+foreach ($user in $userData) {
+    $firstName = $user.FirstName
+    $lastName = $user.LastName
+    $username = $user.Username
+    $email = $user.Email
+    $department = $user.Department
+    $title = $user.Title
+    $ou = "OU=Users,DC=YourDomain,DC=com"  # Replace with your actual OU
+
+    New-ADUser `
+        -Name "$firstName $lastName" `
+        -GivenName $firstName `
+        -Surname $lastName `
+        -UserPrincipalName "$username@YourDomain.com" `
+        -SamAccountName $username `
+        -EmailAddress $email `
+        -Path $ou `
+        -Department $department `
+        -Title $title `
+        -AccountPassword (ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force) `
+        -Enabled $true `
+        -ChangePasswordAtLogon $true
+}
+```
+
+I have now succesfuly created 500 user accounts on active directry using the data from the CSV file. I also automatically set all apsswords as "P@ssw0rd" and set used the ```ChangePasswordAtLogon $true``` code for each user to change their password upon loging in.
 
 
 
